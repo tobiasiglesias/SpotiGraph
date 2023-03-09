@@ -1,4 +1,5 @@
-from website.utils import get_artist, get_all_albums, get_collaborators
+from website.crud.collabs import get_collabs_db, get_artist
+from website.utils import get_dict_collab
 from website import create_app
 from flask import jsonify
 from flask_cors import CORS
@@ -24,15 +25,14 @@ def artist(name):
 @app.route('/artist/albums/<string:name>')
 def albums(name):
     artist = get_artist(name)
-    albums = get_all_albums(artist)
     return albums
 
 
 @app.route('/artist/collabs/<string:name>')
 def collabs(name):
     # TODO Serializar la lista de colaboradores
-    hola = get_collaborators(name)
-    return "get_collaborators(name)"
+    artist = get_artist(name)
+    return jsonify(get_dict_collab(artist))
 
 
 if __name__ == '__main__':

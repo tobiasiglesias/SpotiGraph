@@ -1,11 +1,10 @@
 import React, {useEffect, useState} from 'react';
-import axios from 'axios';
+import GraphView from './GraphView';
 import "./App.css";
 
 
 
 const API_URL = "http://127.0.0.1:5000/artist";
-const API_TEST = "https://jsonplaceholder.typicode.com/users"
 
 function App() {
 
@@ -16,24 +15,12 @@ function App() {
   const searchArtist = async(artist) => {
     try {
       console.log("hola")
-      // const response = await fetch(`${API_URL}/${artist}`);
-      const response = await fetch(API_TEST);
+      const response = await fetch(`${API_URL}/${artist}`);
       const data = await response.json();
-      console.log(data);
+      console.log("🚀 ~ file: App.js:20 ~ searchArtist ~ data:", data)
     } catch (error) {
-      console.log(artist);
       console.error(error);
     }
-
-    // fetch(API_URL)
-    // .then((response) => {
-    //   return response.json();
-    // })
-    // .then((json) => {
-    //   console.log(json);
-    // });
-
-    
 
   };
 
@@ -64,6 +51,11 @@ function App() {
                 </div>
             </div>
             </nav>
+        </div>
+
+        <div>
+          <GraphView></GraphView>
+
         </div>
 
 
