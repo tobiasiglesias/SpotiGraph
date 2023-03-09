@@ -28,7 +28,7 @@ function ForceGraph({
     colors = d3.schemeTableau10, // an array of color strings, for the node groups
     width = 640, // outer width, in pixels
     height = 400, // outer height, in pixels
-    invalidation // when this promise resolves, stop the simulation
+    // invalidation // when this promise resolves, stop the simulation
   } = {}) {
     // Compute values.
     const N = d3.map(nodes, nodeId).map(intern);
@@ -92,7 +92,7 @@ function ForceGraph({
     if (L) link.attr("stroke", ({index: i}) => L[i]);
     if (G) node.attr("fill", ({index: i}) => color(G[i]));
     if (T) node.append("title").text(({index: i}) => T[i]);
-    if (invalidation != null) invalidation.then(() => simulation.stop());
+    // if (invalidation != null) invalidation.then(() => simulation.stop());
   
     function intern(value) {
       return value !== null && typeof value === "object" ? value.valueOf() : value;
