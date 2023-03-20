@@ -12,7 +12,14 @@ def add_artist_db(artist):
     if query:
         return query
     else:
-        new_artist = Artist(id=artist['id'], name=artist['name'])
+        print(artist)
+        try:
+            new_artist = Artist(
+                id=artist['id'], name=artist['name'], image=artist['images'][0]['url'])
+        except Exception as e:
+            if len(artist['images']) < 1:
+                new_artist = Artist(
+                    id=artist['id'], name=artist['name'], image="https://picsum.photos/640")
         session.add(new_artist)
         session.commit()
         return new_artist

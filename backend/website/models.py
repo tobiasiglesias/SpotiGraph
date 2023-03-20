@@ -20,6 +20,7 @@ class Artist(Base):
 
     id = Column(String, primary_key=True)
     name = Column(String)
+    image = Column(String)
     last_upadte = Column(DateTime(timezone=True), server_default=func.now())
     complete_node = Column(Boolean)
     colabs = relationship(

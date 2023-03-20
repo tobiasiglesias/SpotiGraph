@@ -1,5 +1,5 @@
 from website import session
-from website.api import get_artist_from_name, get_feat_tracks
+from website.api import get_artist_from_name, get_feat_tracks, get_artist_from_id
 from website.models import Colab, Artist
 from .artists import get_artist_db, add_artist_db
 from .tracks import add_track_db
@@ -64,10 +64,7 @@ def add_collabs(main_artist, limit=50, offset=0):
         session.add(main_artist)
         session.commit()
     else:
-        main_artist = Artist(
-            id=main_artist['id'], name=main_artist['name'], complete_node=True)
-        session.add(main_artist)
-        session.commit()
+        main_artist = add_artist_db(main_artist)
 
     # Nos quedamos con los temas unicamente del artista
 
@@ -96,7 +93,8 @@ def add_collabs(main_artist, limit=50, offset=0):
                     else:
                         add_collab_db(main_artist, query)
                 else:
-                    other_artist = add_artist_db(artist_in_track)
+                    other_artist = get_artist_from_id(artist_in_track['id'])
+                    other_artist = add_artist_db(other_artist)
                     add_track_db(track)
                     add_collab_db(main_artist, other_artist)
 

@@ -1,31 +1,26 @@
-import React, {useEffect, useRef, useState, createRef} from 'react';
-import miserablesJson from './miserables.json'
-import ForceGraph from './forceGraph';
+import React, {useState} from 'react';
+import ForceGraph3D from 'react-force-graph-3d';
+import * as THREE from 'three';
+function GraphView(props) {
+    const [graphData, setGraphData] = useState(props.gData)
 
-function GraphView() {
+    const nodes = graphData.nodes
+    const links = graphData.links
 
-    const miserables = miserablesJson;
-    const chart = ForceGraph(miserables, {
-        nodeId: (d) => d.id,
-        nodeGroup: (d) => d.group,
-        linkStrokeWidth: (l) => Math.sqrt(l.value),  
-        width: 1200,
-        height: 600,// a promise to stop the simulation when the cell is re-run
-      })
-      
-      const svg = useRef(null);
-      useEffect(()=>{
-        if(svg.current){
-          svg.current.appendChild(chart)
-        } 
-      }, []);
-      
-    if (chart.simulation && chart.simulation.restart) {chart.simulation.restart();}
+    nodes.forEach(node => {console.log(node)})
 
     return ( 
+        <ForceGraph3D
+        graphData={graphData}
+        nodeThreeObject={({ image_url }) => {
+          const imgTexture = new THREE.TextureLoader().load(image_url);
+          const material = new THREE.SpriteMaterial({ map: imgTexture });
+          const sprite = new THREE.Sprite(material);
+          sprite.scale.set(12, 12);
 
-      <div className='d-flex justify-content-center' ref={svg}></div>
-
+          return sprite;
+        }}
+      />
      );
 }
 
