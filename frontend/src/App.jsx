@@ -31,7 +31,7 @@ function App() {
       <div className="app">
         <div className='d-flex justify-content-center'>
           <h1 className="text-primary p-3">SpotiGraph</h1>
-          <h3 className='text-danger pt-3'>prototipo</h3>
+          <h3 className='text-danger pt-3'>work in progress</h3>
         </div>
   
         <div className='d-flex justify-content-center'>
