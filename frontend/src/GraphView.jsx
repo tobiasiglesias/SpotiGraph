@@ -1,14 +1,10 @@
 import React, {useState} from 'react';
 import ForceGraph3D from 'react-force-graph-3d';
 import * as THREE from 'three';
-function GraphView(props) {
-    const [graphData, setGraphData] = useState(props.gData)
 
-    const nodes = graphData.nodes
-    const links = graphData.links
 
-    nodes.forEach(node => {console.log(node)})
-
+function GraphView({graphData}) {
+    
     return ( 
         <ForceGraph3D
         graphData={graphData}
@@ -25,3 +21,4 @@ function GraphView(props) {
 }
 
 export default GraphView;
+

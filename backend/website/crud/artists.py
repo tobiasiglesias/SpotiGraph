@@ -1,9 +1,13 @@
-from website import session
+from website import db
 from website.models import Artist
+from sqlalchemy.orm.exc import NoResultFound
 
 
 def get_artist_db(id):
-    return session.query(Artist).filter_by(id=id).first()
+    try:
+        return db.session.query(Artist).filter_by(id=id).one()
+    except NoResultFound:
+        return None
 
 
 def add_artist_db(artist):
@@ -20,6 +24,6 @@ def add_artist_db(artist):
             if len(artist['images']) < 1:
                 new_artist = Artist(
                     id=artist['id'], name=artist['name'], image="https://picsum.photos/640")
-        session.add(new_artist)
-        session.commit()
+        db.session.add(new_artist)
+        db.session.commit()
         return new_artist

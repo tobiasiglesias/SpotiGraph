@@ -5,7 +5,7 @@ SpotiGraph es una aplicación web que utiliza la API de Spotify para generar una
 - Búsqueda de artistas en la API de Spotify.
 - Generación de un force directed graph en 3D del artista y sus colaboradores.
 - Conexión entre los nodos que representan a los artistas que han colaborado en una canción juntos.
-- Recursividad de la generación del force directed graph hasta llegar a un tope de nodos dado por el usuario. (Work in Progress)
+- Recursividad de la generación del force directed graph hasta llegar a un tope de nodos dado por el usuario.
 
 ## Tecnologías utilizadas
 Backend:
@@ -34,7 +34,7 @@ Backend:
 4. Buscar un artista y explorar el force directed graph generado.
 
 
-## [DEMO](https://www.youtube.com/watch?v=_mxVK4ADzv0)
+## [DEMO](https://www.youtube.com/watch?v=ACRrcaVPWw8)
 
 
 

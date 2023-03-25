@@ -1,3 +1,4 @@
+from . import db
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 from sqlalchemy import ForeignKey, Column, Integer, String, Table, DateTime, Boolean
@@ -6,16 +7,16 @@ from sqlalchemy.sql import func
 Base = declarative_base()
 
 # Smaller id goes first, easier lookup
-Colab = Table(
+Colab = db.Table(
     "colab_table",
-    Base.metadata,
+    # Base.metadata,
     Column("artist1_id", ForeignKey("artists.id"), primary_key=True),
     Column("artist2_id", ForeignKey("artists.id"), primary_key=True),
     # Column("track_id", ForeignKey("tracks.id"))
 )
 
 
-class Artist(Base):
+class Artist(db.Model):
     __tablename__ = "artists"
 
     id = Column(String, primary_key=True)
@@ -35,7 +36,7 @@ class Artist(Base):
         return f"<Artist(id:{self.id}, name:{self.name})>"
 
 
-class Track(Base):
+class Track(db.Model):
     __tablename__ = "tracks"
     id = Column(String, primary_key=True)
     name = Column(String)

@@ -1,4 +1,4 @@
-from website import session
+from website import db
 from website.models import Track
 
 
@@ -9,10 +9,10 @@ def add_track_db(track):
         return query
     else:
         new_track = Track(id=track['id'], name=track['name'])
-        session.add(new_track)
-        session.commit()
+        db.session.add(new_track)
+        db.session.commit()
         return new_track
 
 
 def get_track_db(id):
-    return session.query(Track).filter_by(id=id).first()
+    return db.session.query(Track).filter_by(id=id).first()

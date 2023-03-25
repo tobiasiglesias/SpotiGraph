@@ -1,4 +1,4 @@
-from website import session
+from website import db
 from website.api import get_artist_from_name, get_feat_tracks, get_artist_from_id
 from website.models import Colab, Artist
 from .artists import get_artist_db, add_artist_db
@@ -8,12 +8,12 @@ from datetime import datetime, timedelta
 
 def get_collab_db(id1, id2):
 
-    return session.query(Colab).filter_by(artist1_id=min(id1, id2), artist2_id=max(id1, id2)).first()
+    return db.session.query(Colab).filter_by(artist1_id=min(id1, id2), artist2_id=max(id1, id2)).first()
 
 
 def get_all_collaborators_db(artist_id):
     collaborators = (
-        session.query(Artist)
+        db.session.query(Artist)
         .join(Colab, (Artist.id == Colab.c.artist1_id) | (Artist.id == Colab.c.artist2_id))
         .filter((Colab.c.artist1_id == artist_id) | (Colab.c.artist2_id == artist_id))
         .all()
@@ -26,10 +26,18 @@ def add_collab_db(artist, other_artist):
     if query:
         return query
     else:
-        new_colab = Colab.insert().values(artist1_id=min(artist.id, other_artist.id),
-                                          artist2_id=max(artist.id, other_artist.id))
-        session.execute(new_colab)
-        session.commit()
+        # new_colab = Colab.insert().values(artist1_id=min(artist.id, other_artist.id),
+        #                                   artist2_id=max(artist.id, other_artist.id))
+        # db.session.execute(new_colab)
+        # db.session.commit()
+        try:
+            new_colab = Colab.insert().values(artist1_id=min(artist.id, other_artist.id),
+                                              artist2_id=max(artist.id, other_artist.id))
+            db.session.execute(new_colab)
+            db.session.commit()
+        except:
+            db.session.rollback()
+
         return new_colab
 
 
@@ -61,8 +69,8 @@ def add_collabs(main_artist, limit=50, offset=0):
         main_artist = query
         main_artist.complete_node = True
         main_artist.last_upadte = datetime.now()
-        session.add(main_artist)
-        session.commit()
+        db.session.add(main_artist)
+        db.session.commit()
     else:
         main_artist = add_artist_db(main_artist)
 
