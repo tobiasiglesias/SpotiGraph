@@ -18,7 +18,7 @@ Backend:
 
 - React
 - D3
-- Bootstrap (Por ahora, la idea es agregarle CSS al finalizar todo lo demas)
+- Bootstrap
 
 ## Instalación
 1. Clonar el repositorio en tu máquina local.
